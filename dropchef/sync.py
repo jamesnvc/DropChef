@@ -40,3 +40,10 @@ def watch(directory, callback):
   except KeyboardInterrupt:
     observer.stop()
   observer.join()
+
+if __name__ == '__main__':
+  import sys, os
+  if os.path.isdir(sys.argv[1]):
+    def created(path):
+      print "File added: {0}".format(path)
+    watch(sys.argv[1], created)
