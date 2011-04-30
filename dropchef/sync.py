@@ -1,6 +1,7 @@
 """
 Module for synchronizing & watching for updates.
 """
+import time
 from watchdog import events
 from watchdog import observers
 
@@ -29,7 +30,13 @@ def watch(directory, callback):
     - callback: A function which will be called on each new file appearing in
       `directory`
   """
-  observer = observers.Observers
+  observer = observers.Observer()
   handler = CreatedFileHandler(callback)
-  observers.schedule(handler, directory)
-
+  observer.schedule(handler, directory)
+  observer.start()
+  try:
+    while True:
+      time.sleep(1)
+  except KeyboardInterrupt:
+    observer.stop()
+  observer.join()
