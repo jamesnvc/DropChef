@@ -34,6 +34,7 @@ def watch(directory, callback):
   handler = CreatedFileHandler(callback)
   observer.schedule(handler, directory)
   observer.start()
+  # TODO: Find a better way to do this - queue from controlling process?
   try:
     while True:
       time.sleep(1)
