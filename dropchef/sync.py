@@ -23,7 +23,7 @@ class CreatedFileHandler(events.FileSystemEventHandler):
       self._callback(event.src_path)
 
 def watch(directory, callback):
-  """Watch the given directory  and call `callback` on new files.
+  """Watch the given directory and call `callback` on new files.
 
   Args:
     - directory: A string representing the path to the directory to watch
