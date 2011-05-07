@@ -43,8 +43,8 @@ def watch(directory, callback, cmdQueue):
   """Watch the given directory and call `callback` on new files.
 
   Monitoring is done using the watchdog module, which will try to use the best
-  asynchronous API available (kqueue on OS X/BSD, inotify on Linux, who-knows-what
-  on Windows).
+  asynchronous API available (kqueue on OS X/BSD, inotify on Linux,
+  who-knows-what on Windows).
 
   Args:
     - directory: A string representing the path to the directory to watch.
