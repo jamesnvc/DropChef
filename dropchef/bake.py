@@ -53,3 +53,8 @@ def bake(filePath, template=None):
     'author': headers['Author'],
     'date': headers['Date']
   })
+
+if __name__ == '__main__':
+  import sys
+  if len(sys.argv) == 3:
+    print bake(sys.argv[1], sys.argv[2])
