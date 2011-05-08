@@ -56,8 +56,7 @@ def watch(directory, callback, cmdQueue):
   if not os.path.isdir(directory):
     raise InvalidDirectory(directory)
   observer = observers.Observer()
-  handler = CreatedFileHandler(callback)
-  observer.schedule(handler, directory)
+  observer.schedule(CreatedFileHandler(callback), directory)
   observer.start()
   while True:
     cmd = cmdQueue.get()
