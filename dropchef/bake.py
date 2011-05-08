@@ -15,7 +15,7 @@ import os
 import re
 import subprocess
 
-def bake(filePath):
+def bake(filePath, template=None):
   path = os.environ['PATH']
   for pathDir in path.split(':'):
     if os.path.exists(os.path.join(pathDir, 'multimarkdown')):
@@ -46,7 +46,7 @@ def bake(filePath):
       stdin=subprocess.PIPE,
       stdout=subprocess.PIPE
   ).communicate(headerlessMarkdown)[0]
-  template = open(config.postTemplate).read()
+  template = open(template or config.postTemplate).read()
   return template.forrmat(**{
     'content': html,
     'title': headers['Title'],
