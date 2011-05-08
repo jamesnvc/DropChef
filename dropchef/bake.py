@@ -24,16 +24,21 @@ def bake(filePath, template=None):
   else:
     raise Exception("No multimarkdown in PATH")
 
+  def squeeze(s): return ''.join(s.split())
+  def camelCase(s):
+    return s[0].lower() + squeeze(s[1:])
+
   headerlessMarkdown = []
-  headers = {}
+  headers = dict()
   lineRe = re.compile(r'^(\w[^:]*):\s+(.*)$')
+
   with open(filePath, 'r') as markdownPost:
     inHeader = True
     for line in markdownPost:
       if inHeader:
         match = lineRe.match(line)
         if match:
-          headers[match.group(1)] = match.group(2)
+          headers[camelCase(match.group(1))] = match.group(2)
           continue
         else:
           inHeader = False
@@ -46,12 +51,9 @@ def bake(filePath, template=None):
       stdout=subprocess.PIPE
   ).communicate(headerlessMarkdown)[0]
   template = open(template or config.postTemplate).read()
-  return template.format(**{
-    'content': html,
-    'title': headers['Title'],
-    'author': headers['Author'],
-    'date': headers['Date']
-  })
+  templateVars = {'content': html}
+  templateVars.update(headers)
+  return template.format(**templateVars)
 
 if __name__ == '__main__':
   import sys
