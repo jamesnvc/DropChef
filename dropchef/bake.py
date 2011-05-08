@@ -33,8 +33,7 @@ def bake(filePath, template=None):
       if inHeader:
         match = lineRe.match(line)
         if match:
-          header, value = match.groups()
-          headers[header] = value
+          headers[match.group(1)] = match.group(2)
           continue
         else:
           inHeader = False
