@@ -5,7 +5,6 @@ import functools
 import os
 import tempfile
 import threading
-import time
 import unittest
 
 class TestSync(unittest.TestCase):
