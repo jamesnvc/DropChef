@@ -47,7 +47,7 @@ def bake(filePath, template=None):
       stdout=subprocess.PIPE
   ).communicate(headerlessMarkdown)[0]
   template = open(template or config.postTemplate).read()
-  return template.forrmat(**{
+  return template.format(**{
     'content': html,
     'title': headers['Title'],
     'author': headers['Author'],
