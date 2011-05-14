@@ -65,7 +65,8 @@ def bake(filePath, template=None):
       stdin=subprocess.PIPE,
       stdout=subprocess.PIPE
   ).communicate(headerlessMarkdown)[0]
-  template = open(template or config.postTemplate).read()
+  with open(template or config.postTemplate, 'r') as templFile:
+    template = templFile.read()
   templateVars = {'content': html}
   templateVars.update(headers)
   return template.format(**templateVars)
