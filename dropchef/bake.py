@@ -40,14 +40,13 @@ def bake(filePath, template=None):
     raise Exception("No multimarkdown in PATH")
 
   def squeeze(s): return ''.join(s.split())
-  def camelCase(s):
-    return s[0].lower() + squeeze(s[1:])
+  def camelCase(s): return s[0].lower() + squeeze(s)[1:]
 
   headerlessMarkdown = []
   headers = dict()
-  lineRe = re.compile(r'^(\w[^:]*):\s+(.*)$')
 
   with open(filePath, 'r') as markdownPost:
+    lineRe = re.compile(r'^(\w[^:]*):\s+(.*)$')
     inHeader = True
     for line in markdownPost:
       if inHeader:
