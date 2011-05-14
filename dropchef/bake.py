@@ -16,6 +16,21 @@ import re
 import subprocess
 
 def bake(filePath, template=None):
+  """Bake the (multi)markdown post located at `filePath` into HTML.
+
+  Note that this requires multimarkdown be installed and on the $PATH. The
+  converted entry will be baked into the HTML template provided for posts. This
+  is done simply using python's builtin string.format method. The format method
+  will be called with a dictionary containing the (HTML) content of the post at
+  the 'content' key and all of the multimarkdown headers, camelCased.
+
+  Args:
+    - filePath: The path of the multimarkdown file to bake.
+    - template: The location of the HTML template. If not given, defaults to
+                dropbox.cnofig.postTemplate.
+  Returns:
+    - A string containing the processed HTML for the post.
+  """
   path = os.environ['PATH']
   for pathDir in path.split(':'):
     if os.path.exists(os.path.join(pathDir, 'multimarkdown')):
